@@ -1,4 +1,4 @@
-"""Main KIMB AML/CFT quiz: AI deepfake question first, followed by original 13."""
+"""Main KIMB AML/CFT quiz: internal fraud, deepfake and original 13 questions."""
 from pathlib import Path
 
 original = Path(__file__).with_name("quiz_original_13.py").read_text(encoding="utf-8")
@@ -6,7 +6,19 @@ needle = "questions = ["
 if original.count(needle) != 1:
     raise RuntimeError("Original question-bank structure has changed; review before injecting questions.")
 
-new_question = '''
+new_questions = '''
+    {
+        "category": "الاحتيال الداخلي (Internal Fraud)",
+        "question": "لاحظ موظف في أحد فروع البنك أن زميلًا لديه صلاحيات تشغيلية يعدّل بيانات حسابات بعض العملاء ويُجري قيودًا غير معتادة، ثم يطلب منه اعتماد العمليات دون الاطلاع على المستندات الداعمة بحجة ضغط العمل، ويطلب إبقاء الأمر سرّيًا. ما التصرف الأنسب؟",
+        "options": [
+            "اعتماد العمليات لأن الزميل موظف موثوق ولديه صلاحيات على النظام.",
+            "رفض اعتماد أي عملية دون المستندات والتحقق والضوابط المطلوبة، والمحافظة على الأدلة المتاحة دون تعديلها، والإبلاغ فورًا عبر قنوات مكافحة الاحتيال أو الامتثال أو الإبلاغ الداخلي المعتمدة.",
+            "مواجهة الزميل علنًا وإبلاغ جميع الموظفين بتفاصيل الشبهة قبل رفع بلاغ رسمي.",
+            "اعتماد عملية واحدة فقط ثم انتظار ظهور خسارة مالية قبل الإبلاغ."
+        ],
+        "answer": "رفض اعتماد أي عملية دون المستندات والتحقق والضوابط المطلوبة، والمحافظة على الأدلة المتاحة دون تعديلها، والإبلاغ فورًا عبر قنوات مكافحة الاحتيال أو الامتثال أو الإبلاغ الداخلي المعتمدة.",
+        "explanation": "تعديل بيانات العملاء، والقيود غير المعتادة، وطلب تجاوز الاعتمادات والسرية هي مؤشرات محتملة للاحتيال الداخلي، وليست دليلًا قاطعًا على وقوعه. ينبغي عدم اعتماد عمليات تفتقر إلى المستندات أو الموافقات، والحفاظ على سرية المعلومات والأدلة وفق الصلاحيات، وتصعيد الاشتباه فورًا للقنوات المختصة دون اتهام أو تحقيق شخصي أو تنبيه قد يعرقل المراجعة."
+    },
     {
         "category": "الاحتيال بالذكاء الاصطناعي – التزييف العميق (Deepfake)",
         "question": "تلقى موظف في البنك مكالمة فيديو تبدو وكأنها من أحد كبار المسؤولين؛ كان الوجه والصوت مقنعين، وطُلِب منه تنفيذ تحويل عاجل إلى حساب جديد مع تجاوز إجراءات الاعتماد المعتادة بحجة السرية. ما التصرف الأنسب؟",
@@ -21,6 +33,6 @@ new_question = '''
     },
 '''
 
-# Preserve the original page appearance, answer controls, feedback, and scoring.
-updated = original.replace(needle, needle + new_question, 1)
+# Keep original Arabic layout, question navigation, answer feedback and scoring.
+updated = original.replace(needle, needle + new_questions, 1)
 exec(compile(updated, str(Path(__file__).with_name("quiz_original_13.py")), "exec"))
